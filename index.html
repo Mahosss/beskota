@@ -3,674 +3,599 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>beskota ✦ Queen</title>
+<title>beskota ✦ Magazine</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Reem+Kufi:wght@400;600;700&family=Playfair+Display:wght@500;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
 <style>
 /* ================= Base ================= */
 * {
   margin: 0; padding: 0; box-sizing: border-box;
-  font-family: 'Tajawal', sans-serif;
 }
 :root {
-  --rose: #e8b4b8;
-  --rose-deep: #c98a8e;
-  --gold: #d4af37;
-  --gold-light: #f5d76e;
-  --gold-glow: rgba(212, 175, 55, 0.45);
-  --rose-glow: rgba(232, 180, 184, 0.35);
-  --bg: #0a0a0a;
-  --card: rgba(20, 16, 14, 0.65);
-  --border: rgba(212, 175, 55, 0.28);
-  --text: #f5efe0;
-  --dim: #a89b7b;
+  --cream: #f4ede3;
+  --cream-2: #ebe1d3;
+  --ink: #1a1613;
+  --ink-soft: #2b2621;
+  --rose: #c8938c;
+  --rose-deep: #a87a72;
+  --gold: #c9a55c;
+  --dim: #8a7f72;
 }
 
-/* ================= Light Mode ================= */
-body.light {
-  --bg: #fdf6f0;
-  --card: rgba(255, 255, 255, 0.75);
-  --border: rgba(201, 138, 142, 0.3);
-  --text: #3a2a2a;
-  --dim: #8a7373;
-}
-
+html { scroll-behavior: smooth; }
 html, body { overflow-x: hidden; }
 
 body {
   min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 16px;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Tajawal', sans-serif;
   position: relative;
   cursor: none;
-  transition: background 0.5s ease, color 0.5s ease;
+  padding: 0;
 }
-@media (max-width: 768px) { body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
 
 /* ================= Custom Cursor ================= */
 .cursor {
   position: fixed;
-  width: 34px; height: 34px;
-  border: 2px solid var(--gold);
+  width: 30px; height: 30px;
+  border: 1.5px solid var(--ink);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 14px var(--gold-glow);
-  background: rgba(212,175,55,0.05);
+  transition: transform 0.15s ease, background 0.25s, border-color 0.25s, width 0.25s, height 0.25s;
+  background: rgba(26,22,19,0.03);
 }
 .cursor-dot {
   position: fixed;
-  width: 6px; height: 6px;
-  background: var(--rose);
+  width: 5px; height: 5px;
+  background: var(--rose-deep);
   border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 12px var(--rose);
 }
 .cursor.grow {
-  transform: translate(-50%, -50%) scale(1.7);
-  background: rgba(232, 180, 184, 0.18);
-  border-color: var(--rose);
-  box-shadow: 0 0 24px var(--rose-glow);
+  width: 55px; height: 55px;
+  background: rgba(200,147,140,0.15);
+  border-color: var(--rose-deep);
 }
+@media (max-width: 900px) { body { cursor: auto; } .cursor, .cursor-dot { display: none; } }
 
-/* ================= Background ================= */
-.bg {
+/* ================= Background Texture ================= */
+.bg-texture {
   position: fixed;
   inset: 0;
   z-index: 0;
-  overflow: hidden;
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 20% 10%, rgba(232,180,184,0.12), transparent 55%),
-    radial-gradient(ellipse at 80% 90%, rgba(212,175,55,0.10), transparent 55%),
-    var(--bg);
-  transition: background 0.5s ease;
+    radial-gradient(ellipse at 20% 20%, rgba(200,147,140,0.12), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(201,165,92,0.10), transparent 50%),
+    var(--cream);
 }
-.grid-overlay {
+.bg-texture::after {
+  content: '';
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(212,175,55,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212,175,55,0.045) 1px, transparent 1px);
-  background-size: 46px 46px;
-  mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
-}
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(110px);
-  opacity: 0.5;
-  animation: drift 20s ease-in-out infinite;
-}
-.orb.o1 { width: 420px; height: 420px; background: var(--rose);   top: -140px; right: -100px; opacity: 0.22; }
-.orb.o2 { width: 360px; height: 360px; background: var(--gold); bottom: -120px; left: -100px; animation-delay: -7s; opacity: 0.18; }
-.orb.o3 { width: 280px; height: 280px; background: var(--rose-deep);   top: 45%; left: 55%; opacity: 0.15; animation-delay: -13s; }
-@keyframes drift {
-  0%,100% { transform: translate(0,0) scale(1); }
-  50%     { transform: translate(40px,-40px) scale(1.15); }
+    repeating-linear-gradient(0deg, rgba(26,22,19,0.02) 0px, rgba(26,22,19,0.02) 1px, transparent 1px, transparent 3px);
+  opacity: 0.6;
 }
 
-/* ================= Card ================= */
-.card {
+/* ================= Frame ================= */
+.frame {
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 640px;
-  background: var(--card);
-  backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
-  border: 1px solid var(--border);
-  border-radius: 32px;
-  padding: 0 0 40px;
-  overflow: hidden;
-  box-shadow:
-    0 30px 80px rgba(0,0,0,0.6),
-    0 0 60px rgba(232,180,184,0.08);
-  animation: rise 1s cubic-bezier(.2,.9,.3,1.2);
-  transition: background 0.5s ease, border-color 0.5s ease;
-}
-@keyframes rise {
-  from { opacity: 0; transform: translateY(40px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(500px circle at var(--mx,50%) var(--my,50%),
-              rgba(232,180,184,0.12), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.4s;
-  pointer-events: none;
-  z-index: 2;
-}
-.card:hover::before { opacity: 1; }
-
-/* ================= Theme Toggle ================= */
-.theme-toggle {
-  position: absolute;
-  top: 14px; left: 14px;
-  z-index: 5;
-  width: 38px; height: 38px;
+  max-width: 1280px;
+  margin: 30px auto;
+  padding: 20px;
   display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: rgba(212,175,55,0.15);
-  border: 1px solid var(--border);
-  color: var(--gold);
-  font-size: 15px;
-  cursor: none;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(8px);
+  grid-template-columns: 1.15fr 1fr;
+  background: var(--cream-2);
+  border: 1px solid rgba(26,22,19,0.12);
+  box-shadow:
+    0 40px 100px rgba(26,22,19,0.18),
+    0 0 0 1px rgba(255,255,255,0.5) inset;
+  min-height: calc(100vh - 60px);
+  animation: frameIn 1.2s cubic-bezier(.2,.9,.3,1.1);
 }
-.theme-toggle:hover {
-  background: rgba(212,175,55,0.3);
-  transform: rotate(45deg) scale(1.1);
-  box-shadow: 0 0 18px var(--gold-glow);
+@keyframes frameIn {
+  from { opacity: 0; transform: scale(0.98) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* ================= Cover ================= */
-.cover {
-  height: 175px;
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.95) 100%),
-    url('https://img.alfrsantv.com/img/f176636174587211.jpg') center/cover no-repeat;
-}
-.cover::after {
-  content: '';
+/* ================= Magazine Header ================= */
+.mag-header {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, rgba(232,180,184,0.3), rgba(212,175,55,0.25));
-  mix-blend-mode: multiply;
+  top: -14px; left: 30px; right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--cream-2);
+  padding: 0 10px;
+  z-index: 5;
 }
-.cover .shimmer {
-  position: absolute;
-  top: 0; left: -60%;
-  width: 60%; height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(245,215,110,0.3), transparent);
-  transform: skewX(-20deg);
-  animation: shine 4.5s ease-in-out infinite;
-  z-index: 1;
-}
-@keyframes shine {
-  0%   { left: -60%; }
-  60%  { left: 130%; }
-  100% { left: 130%; }
-}
+.mag-header span:first-child::before { content: '◆ '; color: var(--rose-deep); }
+.mag-header span:last-child::after { content: ' ◆'; color: var(--rose-deep); }
 
-/* ================= Avatar ================= */
-.avatar-wrap {
-  position: relative;
-  width: 150px; height: 150px;
-  margin: -78px auto 0;
-  z-index: 3;
-}
-.avatar-ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  background: conic-gradient(var(--rose), var(--gold), var(--rose-deep), var(--gold-light), var(--rose));
-  animation: spin 6s linear infinite;
-  filter: blur(2px);
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.avatar {
-  position: relative;
-  width: 100%; height: 100%;
-  border-radius: 50%;
-  background: var(--bg);
-  padding: 5px;
-  overflow: hidden;
-  z-index: 1;
-  transition: transform 0.5s cubic-bezier(.2,.9,.3,1.5);
-}
-.avatar:hover { transform: scale(1.08) rotate(-3deg); }
-.avatar img {
-  width: 100%; height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  user-select: none; pointer-events: none;
-}
-
-.status {
-  position: absolute;
-  bottom: 10px; left: 6px;
-  width: 22px; height: 22px;
-  background: #2ecc71;
-  border: 3px solid #14120c;
-  border-radius: 50%;
-  z-index: 4;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(46,204,113,0.6); }
-  50%     { box-shadow: 0 0 0 8px rgba(46,204,113,0); }
-}
-
-/* ================= Header ================= */
-.header {
-  text-align: center;
-  padding: 22px 26px 0;
+/* ================= Left Column (Info) ================= */
+.left {
+  padding: 60px 45px 50px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  border-left: 1px solid rgba(26,22,19,0.1);
+}
+
+/* Top meta */
+.meta-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dim);
+  font-family: 'Cormorant Garamond', serif;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeDown 1s 0.3s ease forwards;
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Big name */
+.name-block {
+  margin: 15px 0;
+  opacity: 0;
+  animation: nameReveal 1.4s 0.5s cubic-bezier(.2,.9,.3,1.1) forwards;
+}
+@keyframes nameReveal {
+  from { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  margin-bottom: 12px;
+  display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+}
+.subtitle::before {
+  content: '';
+  width: 40px; height: 1px;
+  background: var(--rose-deep);
 }
 
 .name {
-  font-family: 'Dancing Script', 'Reem Kufi', cursive;
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  background: linear-gradient(100deg, var(--rose) 20%, var(--gold-light) 50%, var(--rose-deep) 80%);
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  animation: shineText 4s linear infinite;
-  line-height: 1.2;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(60px, 9vw, 130px);
+  line-height: 0.9;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -3px;
+  position: relative;
 }
-@keyframes shineText { to { background-position: 220% center; } }
-
-.verify {
-  font-size: 22px;
-  -webkit-text-fill-color: var(--gold);
+.name .accent {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--rose-deep);
+}
+.name .deco {
+  position: absolute;
+  top: -10px; left: 0;
+  font-size: 12px;
+  letter-spacing: 4px;
   color: var(--gold);
-  filter: drop-shadow(0 0 8px var(--gold-glow));
+  font-style: normal;
+  font-weight: 400;
 }
 
+/* Tagline */
 .tagline {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--dim);
-  letter-spacing: 2px;
-  margin: 0;
-  padding: 7px 18px;
-  border-radius: 20px;
-  background: rgba(232, 180, 184, 0.08);
-  border: 1px solid var(--border);
-  transition: all 0.3s ease;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 25px 0 0;
+  line-height: 1.5;
+  max-width: 400px;
+  opacity: 0;
+  animation: fadeUp 1s 1s ease forwards;
 }
-.tagline:hover {
-  background: rgba(232, 180, 184, 0.18);
-  box-shadow: 0 0 20px var(--rose-glow);
-  color: var(--rose);
-}
-.tagline i {
-  color: var(--gold);
-  filter: drop-shadow(0 0 6px var(--gold-glow));
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.typed {
-  font-size: 13.5px;
-  color: var(--rose);
-  min-height: 20px;
+.typed-wrap {
+  margin-top: 15px;
+  font-size: 13px;
+  color: var(--dim);
   letter-spacing: 0.5px;
-  opacity: 1;
-  margin: 0;
-  display: block;
-  text-shadow: 0 0 8px var(--rose-glow);
+  min-height: 20px;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s ease forwards;
 }
-.typed::after {
+.typed-wrap::after {
   content: '|';
-  color: var(--gold);
+  color: var(--rose-deep);
   animation: blink 1s steps(1) infinite;
   margin-right: 2px;
 }
 @keyframes blink { 50% { opacity: 0; } }
 
-/* ================= Daily Love Message ================= */
-.love-note {
-  margin: 18px 26px 0;
-  padding: 14px 18px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(232,180,184,0.12), rgba(212,175,55,0.08));
-  border: 1px dashed var(--border);
-  text-align: center;
-  font-size: 14px;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  animation: fadeIn 1s ease;
-}
-.love-note i {
-  color: var(--rose);
-  animation: beat 1.4s infinite;
-  font-size: 16px;
-}
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-8px);} to {opacity:1; transform: translateY(0);} }
-@keyframes beat {
-  0%,100% { transform: scale(1); }
-  25%     { transform: scale(1.25); }
-  50%     { transform: scale(1); }
+/* Divider */
+.rule {
+  width: 80px; height: 1px;
+  background: var(--ink);
+  margin: 30px 0;
+  opacity: 0;
+  animation: fadeUp 1s 1.4s ease forwards;
 }
 
-/* ================= Clock Bar ================= */
-.clock-bar {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 16px 26px 0;
-  flex-wrap: wrap;
-}
-.clock-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--dim);
-  padding: 6px 12px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-}
-.clock-item i { color: var(--gold); font-size: 11px; }
-.clock-item span { color: var(--text); font-weight: 500; }
-
-/* ================= Feature Boxes ================= */
-.features {
+/* Quick info grid */
+.quick-info {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 30px;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeUp 1s 1.6s ease forwards;
+}
+.info-item {
+  display: flex;
+  align-items: center;
   gap: 12px;
-  padding: 0 26px;
-  margin-top: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(26,22,19,0.1);
 }
-.feature {
-  background: linear-gradient(150deg, rgba(232,180,184,0.07), rgba(20,16,14,0.4));
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 18px 8px 16px;
+.info-item i {
+  color: var(--rose-deep);
+  font-size: 14px;
+  width: 20px;
   text-align: center;
-  transition: all 0.35s ease;
-  position: relative;
-  overflow: hidden;
-  cursor: default;
 }
-.feature::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--rose), transparent);
-  transition: left 0.6s;
-}
-.feature:hover::before { left: 100%; }
-.feature:hover {
-  transform: translateY(-6px);
-  border-color: var(--rose);
-  box-shadow: 0 12px 28px var(--rose-glow);
-  background: linear-gradient(150deg, rgba(232,180,184,0.15), rgba(20,16,14,0.5));
-}
-.feature .icon {
-  font-size: 20px;
-  color: var(--rose);
-  filter: drop-shadow(0 0 8px var(--rose-glow));
-}
-.feature .value {
+.info-item .label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dim);
   display: block;
-  margin-top: 8px;
-  font-family: 'Reem Kufi', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--gold-light);
-  letter-spacing: 0.5px;
 }
-.feature .label {
-  font-size: 11px;
-  color: var(--dim);
-  margin-top: 3px;
-  letter-spacing: 1px;
-}
-
-/* ================= Random Quote Button ================= */
-.quote-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 22px auto 0;
-  padding: 10px 22px;
-  border-radius: 25px;
-  background: linear-gradient(135deg, var(--rose), var(--gold));
-  color: #1a1210;
-  border: none;
-  font-size: 13.5px;
-  font-weight: 700;
-  cursor: none;
-  transition: all 0.35s ease;
-  box-shadow: 0 8px 20px rgba(232,180,184,0.25);
+.info-item .value {
   font-family: 'Tajawal', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  display: block;
+  margin-top: 2px;
 }
-.quote-btn:hover {
-  transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 14px 30px rgba(232,180,184,0.45);
-}
-.quote-btn i { font-size: 13px; }
 
-/* ================= Divider ================= */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 30px 26px 18px;
-  color: var(--dim);
-  font-size: 12px;
-  letter-spacing: 2px;
-}
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
-}
-.divider i { color: var(--gold); font-size: 11px; }
-
-/* ================= Quotes ================= */
-.quotes {
-  margin: 0 26px;
-  padding: 20px 22px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(232,180,184,0.08), rgba(212,175,55,0.06));
-  border: 1px solid var(--border);
-  position: relative;
-  min-height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.4s ease;
-}
-.quotes::before {
-  content: '\f10d';
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  position: absolute;
-  top: -12px; right: 22px;
-  color: var(--gold);
-  background: #14100c;
-  padding: 3px 10px;
-  border-radius: 10px;
-  font-size: 13px;
-  box-shadow: 0 0 14px var(--gold-glow);
-}
-body.light .quotes::before { background: #fff5ee; }
-.quotes p {
-  font-size: 15.5px;
-  line-height: 2.05;
-  color: var(--text);
-  text-align: center;
+/* Quote */
+.mag-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  padding-right: 18px;
+  border-right: 2px solid var(--rose-deep);
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeUp 1s 1.8s ease forwards;
   transition: opacity 0.4s ease;
 }
-.quotes p i { color: var(--rose); margin-left: 4px; }
-
-/* ================= Section Title ================= */
-.sec-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 32px 26px 16px;
-  font-family: 'Reem Kufi', sans-serif;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text);
-}
-.sec-title .ico {
-  width: 34px; height: 34px;
-  display: grid;
-  place-items: center;
-  border-radius: 11px;
-  background: linear-gradient(135deg, rgba(232,180,184,0.25), rgba(212,175,55,0.15));
-  border: 1px solid var(--border);
-  color: var(--gold);
-  font-size: 14px;
-  box-shadow: 0 0 16px var(--gold-glow);
-}
-.sec-title .line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--border), transparent);
+.mag-quote::before {
+  content: '"';
+  font-size: 40px;
+  color: var(--rose);
+  line-height: 0;
+  margin-left: 6px;
+  vertical-align: -14px;
 }
 
-/* ================= Videos ================= */
-.videos-scroll {
+/* Bottom actions */
+.actions {
   display: flex;
   gap: 14px;
-  overflow-x: auto;
-  padding: 4px 26px 16px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: var(--rose) transparent;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1s 2s ease forwards;
 }
-.videos-scroll::-webkit-scrollbar { height: 6px; }
-.videos-scroll::-webkit-scrollbar-track { background: transparent; }
-.videos-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, var(--rose), var(--gold));
-  border-radius: 10px;
+.btn {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: none;
+  transition: all 0.35s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
-.video-box {
-  position: relative;
-  flex: 0 0 150px;
-  height: 250px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: #000;
-  scroll-snap-align: start;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+.btn:hover {
+  background: var(--ink);
+  color: var(--cream);
+  letter-spacing: 5px;
 }
-.video-box::after {
-  content: '\f144';
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  position: absolute;
-  bottom: 8px; right: 8px;
-  color: #1a1210;
-  background: var(--rose);
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  pointer-events: none;
-  box-shadow: 0 0 12px var(--rose-glow);
+.btn.filled {
+  background: var(--ink);
+  color: var(--cream);
 }
-.video-box:hover {
-  transform: translateY(-8px) scale(1.04);
-  box-shadow: 0 16px 32px var(--rose-glow);
-}
-.video-box iframe {
-  width: 100%; height: 100%;
-  border: 0;
-  display: block;
+.btn.filled:hover {
+  background: var(--rose-deep);
+  border-color: var(--rose-deep);
 }
 
-/* ================= Social ================= */
-.social {
+/* Footer strip */
+.mag-footer {
+  position: absolute;
+  bottom: 20px; left: 45px; right: 45px;
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 6px 26px 0;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding-top: 16px;
+  border-top: 1px solid rgba(26,22,19,0.1);
+  opacity: 0;
+  animation: fadeUp 1s 2.2s ease forwards;
 }
-.social a {
+.mag-footer i { color: var(--rose-deep); }
+
+/* ================= Right Column (Visual) ================= */
+.right {
   position: relative;
-  width: 48px; height: 48px;
-  display: grid;
-  place-items: center;
-  border-radius: 15px;
-  color: var(--text);
-  background: rgba(255,255,255,0.035);
-  border: 1px solid var(--border);
-  font-size: 18px;
-  text-decoration: none;
-  transition: all 0.35s cubic-bezier(.2,.9,.3,1.4);
   overflow: hidden;
+  padding: 55px 45px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
 }
-.social a::before {
-  content: '';
+
+/* Photo frame */
+.photo-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 3 / 4;
+  opacity: 0;
+  animation: photoIn 1.6s 0.4s cubic-bezier(.2,.9,.3,1.05) forwards;
+}
+@keyframes photoIn {
+  from { opacity: 0; transform: scale(1.05) translateY(30px); filter: blur(6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+.photo-frame {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--rose), var(--gold));
-  opacity: 0;
-  transition: opacity 0.35s;
+  padding: 14px;
+  background: var(--cream);
+  box-shadow:
+    0 30px 60px rgba(26,22,19,0.2),
+    0 0 0 1px rgba(26,22,19,0.15);
 }
-.social a i { position: relative; z-index: 1; }
-.social a:hover {
-  transform: translateY(-6px) rotate(-6deg);
-  color: #1a1210;
-  border-color: transparent;
-  box-shadow: 0 14px 28px var(--rose-glow);
-}
-.social a:hover::before { opacity: 1; }
 
-/* ================= Footer ================= */
-.footer {
-  text-align: center;
-  margin-top: 30px;
-  font-size: 12px;
-  color: var(--dim);
-  letter-spacing: 1px;
+.photo-inner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 }
-.footer i { color: var(--rose); animation: beat 1.4s infinite; }
+.photo-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  transition: transform 0.8s cubic-bezier(.2,.9,.3,1);
+  filter: grayscale(20%) contrast(1.02);
+}
+.photo-inner:hover img {
+  transform: scale(1.06);
+  filter: grayscale(0%) contrast(1.05);
+}
+
+/* Photo caption */
+.photo-caption {
+  position: absolute;
+  bottom: 30px; left: 30px; right: 30px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+  z-index: 2;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+
+/* Page number badge */
+.page-badge {
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  padding: 8px 16px;
+  z-index: 3;
+}
+
+/* Online dot */
+.online-dot {
+  position: absolute;
+  top: 22px; right: 22px;
+  width: 12px; height: 12px;
+  background: #4caf50;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(76,175,80,0.7);
+  animation: pulseDot 2s infinite;
+  z-index: 3;
+}
+@keyframes pulseDot {
+  0%,100% { box-shadow: 0 0 0 0 rgba(76,175,80,0.6); }
+  50%     { box-shadow: 0 0 0 10px rgba(76,175,80,0); }
+}
+
+/* Decorative corners */
+.corner {
+  position: absolute;
+  width: 40px; height: 40px;
+  border: 1px solid var(--rose-deep);
+  pointer-events: none;
+}
+.corner.tl { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+.corner.br { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+
+/* Small deco elements */
+.deco-line {
+  position: absolute;
+  width: 1px;
+  height: 60px;
+  background: var(--rose-deep);
+  top: 50%;
+  opacity: 0.6;
+}
+.deco-line.left { left: 20px; transform: translateY(-50%); }
+.deco-line.right { right: 20px; transform: translateY(-50%); }
+
+/* Photo strip (bottom) */
+.photo-strip {
+  position: absolute;
+  bottom: 20px;
+  left: 45px; right: 45px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s 2.2s ease forwards;
+}
+.strip-thumb {
+  width: 42px; height: 52px;
+  overflow: hidden;
+  border: 1px solid rgba(26,22,19,0.15);
+  background: var(--cream);
+  padding: 3px;
+  transition: all 0.3s ease;
+  cursor: none;
+}
+.strip-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+.strip-thumb:hover {
+  transform: translateY(-4px) scale(1.1);
+  border-color: var(--rose-deep);
+  box-shadow: 0 8px 20px rgba(26,22,19,0.15);
+}
+.strip-thumb:hover img { filter: grayscale(0%); }
+
+/* Vertical text */
+.vertical-text {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--dim);
+  opacity: 0.7;
+}
+
+/* ================= Side Navigation ================= */
+.side-nav {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  opacity: 0;
+  animation: fadeUp 1s 2.5s ease forwards;
+}
+.side-nav a {
+  width: 40px; height: 40px;
+  display: grid;
+  place-items: center;
+  background: var(--cream-2);
+  border: 1px solid rgba(26,22,19,0.15);
+  color: var(--ink);
+  font-size: 14px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: none;
+}
+.side-nav a:hover {
+  background: var(--ink);
+  color: var(--cream);
+  transform: scale(1.1);
+}
 
 /* ================= Responsive ================= */
+@media (max-width: 950px) {
+  .frame {
+    grid-template-columns: 1fr;
+    margin: 20px 10px;
+    padding: 15px;
+  }
+  .left { border-left: none; border-top: 1px solid rgba(26,22,19,0.1); padding: 40px 28px 40px; order: 2; }
+  .right { padding: 50px 28px 80px; order: 1; min-height: 500px; }
+  .photo-wrap { max-width: 280px; }
+  .mag-footer { position: static; margin-top: 30px; }
+  .side-nav { display: none; }
+  .mag-header { font-size: 9px; letter-spacing: 3px; }
+  .name { letter-spacing: -1px; }
+  .quick-info { gap: 14px; }
+}
+
 @media (max-width: 500px) {
-  body { padding: 20px 10px; }
-  .card { border-radius: 24px; }
-  .cover { height: 140px; }
-  .avatar-wrap { width: 120px; height: 120px; margin-top: -62px; }
-  .name { font-size: 38px; }
-  .features { gap: 8px; padding: 0 16px; }
-  .feature .value { font-size: 13px; }
-  .feature .icon { font-size: 17px; }
-  .quotes { margin: 0 16px; padding: 16px; }
-  .quotes p { font-size: 14px; }
-  .love-note, .clock-bar { margin-left: 16px; margin-right: 16px; }
-  .sec-title, .social, .divider { margin-left: 16px; margin-right: 16px; }
-  .videos-scroll { padding-left: 16px; padding-right: 16px; }
-  .video-box { flex: 0 0 130px; height: 220px; }
+  .left { padding: 30px 20px; }
+  .right { padding: 40px 20px 90px; }
+  .mag-quote { font-size: 18px; }
+  .subtitle { letter-spacing: 5px; font-size: 11px; }
+  .actions { flex-direction: column; }
+  .btn { width: 100%; justify-content: center; }
+  .photo-strip { left: 20px; right: 20px; }
+  .strip-thumb { width: 36px; height: 44px; }
+  .info-item .value { font-size: 13.5px; }
 }
 </style>
 </head>
@@ -680,119 +605,132 @@ body.light .quotes::before { background: #fff5ee; }
 <div class="cursor"></div>
 <div class="cursor-dot"></div>
 
-<!-- Background -->
-<div class="bg">
-  <div class="grid-overlay"></div>
-  <div class="orb o1"></div>
-  <div class="orb o2"></div>
-  <div class="orb o3"></div>
-</div>
+<!-- Background Texture -->
+<div class="bg-texture"></div>
 
-<!-- Main Card -->
-<main class="card" id="card">
+<!-- Side Navigation -->
+<nav class="side-nav">
+  <a href="#top" title="الرئيسية"><i class="fas fa-house"></i></a>
+  <a href="#videos" title="فيديوهاتي"><i class="fas fa-play"></i></a>
+  <a href="#social" title="تابعني"><i class="fas fa-share-nodes"></i></a>
+</nav>
 
-  <!-- Theme Toggle -->
-  <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">
-    <i class="fas fa-moon"></i>
-  </button>
+<!-- Magazine Frame -->
+<main class="frame" id="top">
 
-  <!-- Cover -->
-  <div class="cover">
-    <div class="shimmer"></div>
+  <!-- Magazine Header -->
+  <div class="mag-header">
+    <span>BESKOTA MAGAZINE</span>
+    <span>ISSUE N° 001</span>
   </div>
 
-  <!-- Avatar -->
-  <div class="avatar-wrap">
-    <div class="avatar-ring"></div>
-    <div class="avatar">
-      <img src="https://img.alfrsantv.com/img/f176635888499821.png" alt="صورة البروفايل">
-    </div>
-    <span class="status" title="متصل الآن"></span>
-  </div>
+  <!-- Left: Info -->
+  <section class="left">
 
-  <!-- Header -->
-  <header class="header">
-    <h1 class="name">
-      beskota
-      <i class="fas fa-crown verify" title="ملكة"></i>
-    </h1>
-    <p class="tagline"><i class="fas fa-heart"></i> ستايلش الشات</p>
-    <p class="typed" id="typed"></p>
-  </header>
-
-  <!-- Daily Love Note -->
-  <div class="love-note">
-    <i class="fas fa-heart"></i>
-    <span id="loveNote">كل يوم وأنتِ أجمل ✨</span>
-  </div>
-
-  <!-- Clock Bar -->
-  <div class="clock-bar">
-    <div class="clock-item"><i class="fas fa-clock"></i> <span id="liveClock">--:--</span></div>
-    <div class="clock-item"><i class="fas fa-calendar"></i> <span id="liveDate">--</span></div>
-  </div>
-
-  <!-- Feature Boxes -->
-  <section class="features">
-    <div class="feature">
-      <i class="fas fa-location-dot icon"></i>
-      <span class="value">مصر 🇪🇬</span>
-      <span class="label">البلد</span>
+    <!-- Top meta -->
+    <div class="meta-top">
+      <span>Vol. 01 · 2025</span>
+      <span>♀ HER EDIT</span>
     </div>
-    <div class="feature">
-      <i class="fas fa-crown icon"></i>
-      <span class="value" id="titleOfDay">ملكة</span>
-      <span class="label">لقب اليوم</span>
+
+    <!-- Big name block -->
+    <div class="name-block">
+      <div class="subtitle">The Cover Story</div>
+      <h1 class="name">
+        <span class="deco">✦ PORTRAIT ✦</span>
+        Beskota<br>
+        <span class="accent">the queen</span>
+      </h1>
+
+      <p class="tagline">ستايلش الشات · بنت مصرية بلمسة ذهبية</p>
+      <p class="typed-wrap" id="typed"></p>
     </div>
-    <div class="feature">
-      <i class="fas fa-face-smile icon" id="moodIcon"></i>
-      <span class="value" id="moodText">سعيدة</span>
-      <span class="label">المزاج</span>
+
+    <div class="rule"></div>
+
+    <!-- Quick info grid -->
+    <div class="quick-info">
+      <div class="info-item">
+        <i class="fas fa-location-dot"></i>
+        <div>
+          <span class="label">Location</span>
+          <span class="value">مصر 🇪🇬</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-heart"></i>
+        <div>
+          <span class="label">Best Friend</span>
+          <span class="value">نور</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-crown"></i>
+        <div>
+          <span class="label">Title</span>
+          <span class="value" id="titleOfDay">ملكة</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-face-smile"></i>
+        <div>
+          <span class="label">Mood</span>
+          <span class="value" id="moodText">سعيدة</span>
+        </div>
+      </div>
     </div>
+
+    <!-- Quote -->
+    <p class="mag-quote" id="quoteText">
+      أحبك فقط بسبب شخصيتك، وليس لما تمتلكه
+    </p>
+
+    <!-- Actions -->
+    <div class="actions">
+      <a href="#videos" class="btn filled">شوف فيديوهاتي <i class="fas fa-arrow-left"></i></a>
+      <button class="btn" id="quoteBtn">اقتباس جديد <i class="fas fa-wand-magic-sparkles"></i></button>
+    </div>
+
+    <!-- Footer -->
+    <div class="mag-footer">
+      <span>Published Monthly</span>
+      <span>Cairo · Egypt <i class="fas fa-heart"></i></span>
+    </div>
+
   </section>
 
-  <!-- Random Quote Button -->
-  <button class="quote-btn" id="quoteBtn">
-    <i class="fas fa-wand-magic-sparkles"></i>
-    اقتباس عشوائي
-  </button>
+  <!-- Right: Photo -->
+  <section class="right">
 
-  <!-- Divider -->
-  <div class="divider"><i class="fas fa-star"></i> اقتباسات <i class="fas fa-star"></i></div>
+    <!-- Decorative corners -->
+    <div class="corner tl"></div>
+    <div class="corner br"></div>
+    <div class="deco-line left"></div>
 
-  <!-- Quotes -->
-  <section class="quotes" id="quoteBox">
-    <p id="quoteText">أحبك فقط بسبب شخصيتك، وليس لما تمتلكه <i class="fas fa-heart"></i></p>
+    <!-- Vertical text -->
+    <div class="vertical-text">✦ 001 · BESKOTA · MMXXV ✦</div>
+
+    <!-- Photo -->
+    <div class="photo-wrap">
+      <div class="page-badge">N° 001</div>
+      <span class="online-dot" title="متصل الآن"></span>
+      <div class="photo-frame">
+        <div class="photo-inner">
+          <img src="https://img.alfrsantv.com/img/f176635888499821.png" alt="صورة beskota">
+        </div>
+        <div class="photo-caption">The Cover · 2025</div>
+      </div>
+    </div>
+
+    <!-- Photo strip -->
+    <div class="photo-strip">
+      <div class="strip-thumb"><img src="https://img.alfrsantv.com/img/f176636174587211.jpg" alt=""></div>
+      <div class="strip-thumb"><img src="https://img.alfrsantv.com/img/f176635888499821.png" alt=""></div>
+      <div class="strip-thumb"><img src="https://img.alfrsantv.com/img/f176636174587211.jpg" alt=""></div>
+      <div class="strip-thumb"><img src="https://img.alfrsantv.com/img/f176635888499821.png" alt=""></div>
+    </div>
+
   </section>
-
-  <!-- Videos -->
-  <h2 class="sec-title">
-    <span class="ico"><i class="fas fa-play"></i></span>
-    فيديوهاتي
-    <span class="line"></span>
-  </h2>
-  <div class="videos-scroll">
-    <div class="video-box"><iframe src="https://www.youtube.com/embed/1uMZhJeXLYw" allowfullscreen loading="lazy"></iframe></div>
-    <div class="video-box"><iframe src="https://www.youtube.com/embed/HVgy8Ge0GJQ" allowfullscreen loading="lazy"></iframe></div>
-    <div class="video-box"><iframe src="https://www.youtube.com/embed/mcp5fsJ8dw8" allowfullscreen loading="lazy"></iframe></div>
-  </div>
-
-  <!-- Social -->
-  <h2 class="sec-title">
-    <span class="ico"><i class="fas fa-share-nodes"></i></span>
-    تابعني
-    <span class="line"></span>
-  </h2>
-  <div class="social">
-    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
-    <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
-    <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-  </div>
-
-  <!-- Footer -->
-  <p class="footer">صُنع بـ <i class="fas fa-heart"></i> لـ beskota</p>
 
 </main>
 
@@ -821,25 +759,26 @@ function animateCursor() {
 }
 animateCursor();
 
-document.querySelectorAll('a, .video-box, .feature, .avatar, button').forEach(el => {
+document.querySelectorAll('a, button, .strip-thumb, .photo-inner').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
 });
 
-/* ============ Mouse Highlight ============ */
-const card = document.getElementById('card');
-card.addEventListener('mousemove', e => {
-  const r = card.getBoundingClientRect();
-  card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-  card.style.setProperty('--my', (e.clientY - r.top)  + 'px');
+/* ============ Parallax on Photo ============ */
+const photoWrap = document.querySelector('.photo-wrap');
+document.addEventListener('mousemove', e => {
+  if (!photoWrap) return;
+  const x = (e.clientX / window.innerWidth - 0.5) * 10;
+  const y = (e.clientY / window.innerHeight - 0.5) * 10;
+  photoWrap.style.transform = `translate(${x}px, ${y}px)`;
 });
 
 /* ============ Typing Effect ============ */
 const typedEl = document.getElementById('typed');
 const lines = [
-  'أهلاً بيكِ في بروفايلي ✨',
+  'بنت مصرية · أنيقة · مميزة ✨',
   'ستايلش الشات 👑',
-  'بنت مميزة • أنيقة • مبدعة',
+  'صانعة محتوى · مبدعة · فخمة',
 ];
 let li = 0, ci = 0, deleting = false;
 function typeLoop() {
@@ -853,78 +792,32 @@ function typeLoop() {
   }
   setTimeout(typeLoop, deleting ? 45 : 85);
 }
-setTimeout(typeLoop, 300);
+setTimeout(typeLoop, 800);
 
-/* ============ لقب اليوم ============ */
+/* ============ Title of the day ============ */
 const titles = ['ملكة', 'أميرة', 'نجمة', 'فراشة', 'قمر', 'ياقوتة'];
-const titleIdx = new Date().getDate() % titles.length;
-document.getElementById('titleOfDay').textContent = titles[titleIdx];
+document.getElementById('titleOfDay').textContent = titles[new Date().getDate() % titles.length];
 
-/* ============ المزاج ============ */
-const moods = [
-  { text: 'سعيدة', icon: 'fa-face-smile' },
-  { text: 'رايقة', icon: 'fa-face-grin-stars' },
-  { text: 'مبسوطة', icon: 'fa-face-laugh-beam' },
-  { text: 'حالمة', icon: 'fa-face-grin-hearts' },
-  { text: 'متحمسة', icon: 'fa-face-grin-tongue-wink' },
-];
-const moodIdx = new Date().getDate() % moods.length;
-document.getElementById('moodText').textContent = moods[moodIdx].text;
-document.getElementById('moodIcon').className = 'fas ' + moods[moodIdx].icon + ' icon';
+/* ============ Mood of the day ============ */
+const moods = ['سعيدة', 'رايقة', 'مبسوطة', 'حالمة', 'متحمسة', 'مرتاحة'];
+document.getElementById('moodText').textContent = moods[new Date().getDate() % moods.length];
 
-/* ============ رسالة الحب اليومية ============ */
-const loveNotes = [
-  'كل يوم وأنتِ أجمل ✨',
-  'ابتسمي، الدنيا أحلى بيك 💖',
-  'أنتِ نجمة لا تُقاوَم 🌟',
-  'كوني فخورة بنفسك دايمًا 👑',
-  'قلبك أبيض زيك 🕊️',
-  'أنتِ الأجمل في عيون الناس 🌸',
-  'ربنا يحفظك ويحقق أحلامك 🤍',
-];
-const noteIdx = new Date().getDate() % loveNotes.length;
-document.getElementById('loveNote').textContent = loveNotes[noteIdx];
-
-/* ============ الساعة والتاريخ ============ */
-function updateClock() {
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2,'0');
-  const m = String(now.getMinutes()).padStart(2,'0');
-  document.getElementById('liveClock').textContent = h + ':' + m;
-  const opts = { weekday: 'long', day: 'numeric', month: 'long' };
-  document.getElementById('liveDate').textContent = now.toLocaleDateString('ar-EG', opts);
-}
-updateClock();
-setInterval(updateClock, 1000);
-
-/* ============ اقتباس عشوائي ============ */
+/* ============ Random Quote ============ */
 const quotesList = [
-  'أحبك فقط بسبب شخصيتك، وليس لما تمتلكه 💖',
-  'الحب الحقيقي هو اللي يخليك أحسن ✨',
-  'كوني وردة في زحمة العابرين 🌹',
-  'اللي يحبك حقيقي هيشوفك أجمل واحدة في الدنيا 👑',
-  'ابتسمي، فالدنيا جميلة بوجودك 🌸',
-  'أنتِ أقوى مما تتخيلي، وأجمل مما تتصوري 💫',
-  'الأنوثة مش شكل، الأنوثة طاقة 🌙',
-  'كوني نفسك، فأنتِ فريدة من نوعك 💎',
+  'أحبك فقط بسبب شخصيتك، وليس لما تمتلكه',
+  'كوني وردة في زحمة العابرين',
+  'الحب الحقيقي يخليك أحسن نسخة من نفسك',
+  'ابتسمي، فالدنيا جميلة بوجودك',
+  'أنتِ أقوى مما تتخيلي وأجمل مما تتصوري',
+  'الأنوثة طاقة، مش مجرد شكل',
+  'كوني نفسك، فأنتِ فريدة من نوعك',
+  'قلبك أبيض، وده أجمل حاجة فيك',
 ];
 document.getElementById('quoteBtn').addEventListener('click', () => {
-  const box = document.getElementById('quoteText');
+  const q = document.getElementById('quoteText');
   const pick = quotesList[Math.floor(Math.random() * quotesList.length)];
-  box.style.opacity = '0';
-  setTimeout(() => {
-    box.innerHTML = pick;
-    box.style.opacity = '1';
-  }, 200);
-});
-
-/* ============ Theme Toggle ============ */
-const toggleBtn = document.getElementById('themeToggle');
-const icon = toggleBtn.querySelector('i');
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('light');
-  const isLight = document.body.classList.contains('light');
-  icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+  q.style.opacity = '0';
+  setTimeout(() => { q.textContent = pick; q.style.opacity = '1'; }, 220);
 });
 </script>
 
